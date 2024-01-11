@@ -1,0 +1,36 @@
+.carousel-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 或根据你的需要设置高度 */
+  }
+  
+  .carousel-content {
+    display: flex;
+    width: 100%;
+    max-width: 1200px; /* 根据你的设计调整最大宽度 */
+  }
+  
+  .carousel-text{
+    flex: 1; /* 这将确保文本和图片各占一半空间 */
+    display: flex;
+    justify-content: center;
+    margin:20px;
+
+    padding: 24px; /* 或根据需要调整 */
+  }
+
+  .carousel-image {
+    flex:1;
+    margin-left: 50px;
+  }
+  
+  .carousel-text {
+    flex-direction: column; /* 使文本垂直排列 */
+  }
+  
+  .carousel-image img {
+    max-width: 100%; /* 确保图片不会超过其容器宽度 */
+    height: auto; /* 保持图片的比例 */
+  }
+  
