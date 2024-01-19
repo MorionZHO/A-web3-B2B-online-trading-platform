@@ -2,7 +2,9 @@ import '../App.css';
 import About from './about/about';
 import Home from './home/home';
 import Shop from './shop/shop'
-import Contact from './contact/contact'
+import Login from './login/login'
+import Register from './register/register';
+import Orders from './orders/orders'
 import React from 'react';
 import { Button, ConfigProvider } from 'antd';
 import {
@@ -22,14 +24,16 @@ function App() {
         },
       }}>
       <Router>
-          {/* 路由切换 */}
-          <Routes>
-            <Route path="/about" element={<About />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<Shop/>}/>
-            <Route path="/contact" element ={<Contact/>}/>
-          </Routes>
-        
+        {/* 路由切换 */}
+        <Routes>
+          <Route path="/about" element={<About />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path='/login' element={<Login />}></Route>
+          <Route path='/register' element={<Register></Register>}></Route>
+        </Routes>
+
       </Router>
 
     </ConfigProvider>

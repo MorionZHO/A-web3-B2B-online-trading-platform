@@ -1,0 +1,20 @@
+
+.login-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    opacity: 0.96;
+}
+
+.register-logo {
+    font-size: 24px;
+    color: #3293C6; /* 根据你的设计调整 */
+    font-weight: bold;
+    text-decoration: none;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }

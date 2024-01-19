@@ -56,6 +56,7 @@ const items = [
 ];
 
 const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
+
 function Sidebar() {
     const [openKeys, setOpenKeys] = useState(['sub1']);
     const onOpenChange = (keys) => {
