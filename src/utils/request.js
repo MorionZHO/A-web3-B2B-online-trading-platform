@@ -3,13 +3,11 @@ import axios from 'axios';
 import { message } from 'antd'
 import { diffTokenTime } from "./auth";
 import storage from './storage';
-
-const [messageApi, contextHolder] = message.useMessage();
 // apiService.js
 
 // 创建axios实例
 const axiosInstance = axios.create({
-  baseURL: 'https://api.example.com', // 你的API基础URL
+  baseURL: 'https://www.fastmock.site/mock/602626775b8e8e6f688cc0cbc8f37dbe/api', // 你的API基础URL
   timeout: 8000,
 });
 
@@ -20,20 +18,14 @@ axiosInstance.interceptors.request.use(config => {
   if (token) {
     if (diffTokenTime()) {
       storage.clearAll();
-      messageApi.open({
-        type:'error',
-        content:'Token has expired, please log in again!'
-      })
+      message.error('Token has expired, please log in again!')
     }
     config.headers['Authorization'] = `Bearer ${token}`;
   }
   return config;
 }, error => {
   // 对请求错误做些什么
-  messageApi.open({
-    type:'error',
-    content:error
-  })
+  message.error(error)
   return Promise.reject(error);
 });
 
@@ -63,4 +55,4 @@ const apiService = {
   // ...更多API函数
 };
 
-export default apiService;
+export default axiosInstance;

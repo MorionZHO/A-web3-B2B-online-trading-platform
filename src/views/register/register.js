@@ -7,6 +7,7 @@ import {
     Card
 } from 'antd';
 import './register.css'
+import { handleRegister } from '../../api/auth';
 import Navbar from '../../components/navbar/navbar';
 
 
@@ -43,9 +44,24 @@ const tailFormItemLayout = {
 };
 function Register() {
     const [form] = Form.useForm();
-    const onFinish = (values) => {
+
+    const onFinishRegister = (values) => {
         console.log('Received values of form: ', values);
+        let payload= new FormData()
+        let phoneNumber=`+${values.prefix}${values.phoneNumber}`
+        payload.append("phoneNumber",phoneNumber)
+        payload.append("password",values.password)
+        payload.append("role",values.role)
+        if(values.role==='seller'){
+            payload.append("companyName",values.companyName)
+        }
+        handleRegister(payload).then(res=>{
+            if(res.code===200){
+                console.log(res)
+            }
+        })
     };
+
     const prefixSelector = (
         <Form.Item name="prefix" noStyle>
             <Select
@@ -71,7 +87,7 @@ function Register() {
                         {...formItemLayout}
                         form={form}
                         name="register"
-                        onFinish={onFinish}
+                        onFinish={onFinishRegister}
                         initialValues={{
                             prefix: '65',
                         }}
@@ -135,7 +151,7 @@ function Register() {
                             <Input.Password />
                         </Form.Item>
 
-                        <Form.Item name="select"
+                        <Form.Item name="role"
                             label="Role"
                             hasFeedback
                             rules={[

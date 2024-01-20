@@ -1,50 +1,98 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { UserOutlined, SearchOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Space, message } from 'antd';
 import './navbar.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import storage from '../../utils/storage';
+
+const localCache = storage.getItem('localCache')?storage.getItem('localCache'):undefined;
 
 const isLoggedIn = () => {
-  const token = localStorage.getItem('authToken');
-  return !!token; // 如果 token 存在则返回 true，否则返回 false
+  if(localCache!==undefined){
+    const token=localCache['authToken']
+    return !!token; // 如果 token 存在则返回 true，否则返回 false
+  }
+  else return false
 };
 
+const isSeller = () =>{
+  if(localCache!==undefined){
+    const role=localCache['userInfo']['role']
+    console.log(role)
+    if(role==='seller')return true;
+  }
+  return false
+}
 
-function handleNavigation(targetPath){
-  if(!isLoggedIn()){
-    window.location.href='/login'
-  }else{
-    window.location.href=`${targetPath}`
+
+function handleNavigation(targetPath) {
+  if (!isLoggedIn()) {
+    window.location.href = '/login'
+  } else {
+    window.location.href = `${targetPath}`
   }
 }
 
-function handleUserClick(key) {
-  if(key===1){
-    window.location.href='/login'
-  }
-  // message.info(`Click on itme ${key}`)
-  switch (key) {
-    case '1':
-      window.location.href = '/';
-      break;
-    case '2': 
-      window.location.href = '/';
-      break;
-    case '3': 
-      window.location.href = '/login';
-      break;
-
-  }
-}
 
 const onClick = ({ key }) => {
-  handleUserClick(key)
+  if(key==='3'){
+    storage.clearAll()
+    window.location.href='/login'
+  }
 };
 
 
 function Navbar() {
+  const [items, setItems] = useState([])
+  
+  useEffect(() => {
+    getDropdownItems();
+  }, []); // 空依赖数组表示这个 effect 只在组件挂载时运行一次
+  const getDropdownItems = () => {
+    if (isLoggedIn()) {
+      if(isSeller()){
+        setItems([
+          {
+            label: 'User Profile',
+            key: 1,
+          },
+          {
+            label: 'Manage Products',
+            key: 2,
+          },
+          {
+            label:'Logout',
+            key: 3,
+            danger: true,
+          }
+        ])
+      }else{
+        setItems([
+          {
+            label: 'User Profile',
+            key: 1,
+          },
+          {
+            label:'Logout',
+            key: 3,
+            danger: true,
+          }
+        ])
+      }
+      
+    } else {
+      setItems([
+        {
+          label: <a href="/login">Login</a>,
+          key: 1,
+        },
+      ])
+    }
+  };
+
+
   return (
     <header className="navbar-container">
       <div className="navbar">
@@ -53,8 +101,8 @@ function Navbar() {
         </Link></div>
         <nav className="navbar-links">
           <Link to="/" className="nav-link">Home</Link>
-          <Link to="/shop" className="nav-link">Shop</Link>
-          <Link to="/Orders" className="nav-link" onClick={() => handleNavigation('/orders')}>Orders</Link>
+          <Link  className="nav-link" onClick={() => handleNavigation('/shop')}>Shop</Link>
+          <Link  className="nav-link" onClick={() => handleNavigation('/orders')}>Orders</Link>
           <Link to="/about" className="nav-link">About Us</Link>
 
         </nav>
@@ -74,30 +122,8 @@ function Navbar() {
       </div>
     </header>
   );
-
-
-
-
 }
-var items = [
-  {
-    label: 'User Profile',
-    key: 1,
-  },
-  {
-    label: 'My Orders',
-    key: 2,
-  },
-  {
-    label: 'Log in',
-    key: 3,
-  },
-  {
-    label: 'Log out',
-    key: 4,
-    danger: true,
-  }
-];
+
 
 
 export default Navbar;
