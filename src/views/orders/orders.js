@@ -1,89 +1,68 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from '../../components/navbar/navbar'
-import { Menu} from 'antd';
-// import { useState } from 'react';
+import { Menu } from 'antd';
 import Itemcard from '../shop/itemCard';
+import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
+import { Avatar, List, Space, Card } from 'antd';
 import './orders.css'
+
+
+const data = Array.from({
+    length: 23,
+}).map((_, i) => ({
+    href: 'https://ant.design',
+    title: `ant design part ${i}`,
+    avatar: `https://api.dicebear.com/7.x/miniavs/svg?seed=${i}`,
+    description:
+        'Ant Design, a design language for background applications, is refined by Ant UED Team.',
+    content:
+        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+}));
+const IconText = ({ icon, text }) => (
+    <Space>
+        {React.createElement(icon)}
+        {text}
+    </Space>
+);
 
 function Orders() {
     return (
         <>
             <Navbar></Navbar>
-            <div className='shop-container'>
-                <div className='sidebar'>
-                <Sidebar></Sidebar>
-                </div>
-                <div className='item-cards'>
-                {/* <Itemcard></Itemcard> */}
-                </div>
-            </div>
-        </>
-    )
-}
+            <List
+                itemLayout="vertical"
+                size="large"
+                className='list-item'
+                pagination={{
+                    onChange: (page) => {
+                        console.log(page);
+                    },
+                    pageSize: 3,
+                }}
+                dataSource={data}
 
-function getItem(label, key, icon, children, type) {
-    return {
-        key,
-        icon,
-        children,
-        label,
-        type,
-    };
-}
-
-const items = [
-    {
-        type: 'divider',
-    },
-    getItem('Navigation One', 'sub1', null, [
-        getItem('Option 1', '1'),
-        getItem('Option 2', '2'),
-        getItem('Option 3', '3'),
-        getItem('Option 4', '4'),
-    ]),
-    getItem('Navigation Two', 'sub2', null, [
-        getItem('Option 5', '5'),
-        getItem('Option 6', '6'),
-        getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
-    ]),
-    
-    getItem('Navigation Three', 'sub4', null, [
-        getItem('Option 9', '9'),
-        getItem('Option 10', '10'),
-        getItem('Option 11', '11'),
-        getItem('Option 12', '12'),
-    ]),
-    
-];
-
-const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
-
-function Sidebar() {
-    const [openItem, setOpenItems] = useState(['sub1']);
-    const onOpenChange = (keys) => {
-        const latestOpenKey = keys.find((key) => openItem.indexOf(key) === -1);
-        if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-          setOpenItems(keys);
-        } else {
-          setOpenItems(latestOpenKey ? [latestOpenKey] : []);
-        }
-      };
-    const onClick = (e) => {
-        console.log('click ', e);
-    };
-    return (
-    <>
-    <section style={{marginLeft:'5px'}}>
-    <h2 style={{marginLeft:'15px',marginBottom:'10px',fontWeight:'normal'}}>Catagories</h2>
-        <Menu
-            onClick={onClick}
-            openItem={openItem}
-            onOpenChange={onOpenChange}
-            style={{background:'#f0f2f5',border:'0px'}}
-            mode="inline"
-            items={items}
-        />
-        </section>
+                renderItem={(item) => (
+                    <Card hoverable={true} className='list-card'>
+                        <List.Item
+                            key={item.title}
+                            extra={
+                                <img
+                                    width={272}
+                                    alt="logo"
+                                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                                />
+                            }
+                        >
+                            <List.Item.Meta
+                                avatar={<Avatar src={item.avatar} />}
+                                title={<a href={item.href}>{item.title}</a>}
+                                description={item.description}
+                            />
+                            {item.content}
+                        </List.Item>
+                    </Card>
+                )}
+            />
         </>
     )
 }

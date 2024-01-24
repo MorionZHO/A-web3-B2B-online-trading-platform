@@ -27,8 +27,8 @@ function Login() {
                 message.success("login success!")
                 console.log(res)
                 let localCache={}
-                localCache['authToken']=res.authToken
-                localCache['userInfo']=res.data.userInfo
+                localCache['authToken']=res.token
+                localCache['userInfo']=res.userInfo
                 storage.setItem('localCache',localCache)
                 window.location.href='/'
             }

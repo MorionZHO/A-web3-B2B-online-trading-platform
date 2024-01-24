@@ -1,19 +1,33 @@
-import React ,{useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/navbar/navbar';
-import { Menu} from 'antd';
+import { Menu } from 'antd';
 import Itemcard from './itemCard';
 import './shop.css'
+import { getAllProducts, searchProduct } from '../../api/product';
 
 export default function Shop() {
+    const [productList, setProductList] = useState([])
+    const [isLoading, setIsLoading] = useState(true);
+
+
+    useEffect(() => {
+        getAllProducts().then(res => {
+            setIsLoading(true);
+            setProductList(res)
+            setIsLoading(false);
+        })
+        
+    }, []);
+
     return (
         <>
             <Navbar></Navbar>
             <div className='shop-container'>
                 <div className='sidebar'>
-                <Sidebar></Sidebar>
+                    <Sidebar></Sidebar>
                 </div>
-                <div className='item-cards'>
-                <Itemcard></Itemcard>
+                <div className='item-cards'>{isLoading ? (<div>loading</div>) : <Itemcard productList={productList}></Itemcard>}
+
                 </div>
             </div>
         </>
@@ -45,14 +59,14 @@ const items = [
         getItem('Option 6', '6'),
         getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
     ]),
-    
+
     getItem('Navigation Three', 'sub4', null, [
         getItem('Option 9', '9'),
         getItem('Option 10', '10'),
         getItem('Option 11', '11'),
         getItem('Option 12', '12'),
     ]),
-    
+
 ];
 
 const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
@@ -62,27 +76,27 @@ function Sidebar() {
     const onOpenChange = (keys) => {
         const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
         if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-          setOpenKeys(keys);
+            setOpenKeys(keys);
         } else {
-          setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+            setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
         }
-      };
+    };
     const onClick = (e) => {
         console.log('click ', e);
     };
     return (
-    <>
-    <section style={{marginLeft:'5px'}}>
-    <h2 style={{marginLeft:'15px',marginBottom:'10px',fontWeight:'normal'}}>Catagories</h2>
-        <Menu
-            onClick={onClick}
-            openKeys={openKeys}
-            onOpenChange={onOpenChange}
-            style={{background:'#f0f2f5',border:'0px'}}
-            mode="inline"
-            items={items}
-        />
-        </section>
+        <>
+            <section style={{ marginLeft: '5px' }}>
+                <h2 style={{ marginLeft: '15px', marginBottom: '10px', fontWeight: 'normal' }}>Catagories</h2>
+                <Menu
+                    onClick={onClick}
+                    openKeys={openKeys}
+                    onOpenChange={onOpenChange}
+                    style={{ background: '#f0f2f5', border: '0px' }}
+                    mode="inline"
+                    items={items}
+                />
+            </section>
         </>
     )
 }

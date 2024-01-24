@@ -4,7 +4,8 @@ import {
     Form,
     Input,
     Select,
-    Card
+    Card,
+    message
 } from 'antd';
 import './register.css'
 import { handleRegister } from '../../api/auth';
@@ -48,7 +49,7 @@ function Register() {
     const onFinishRegister = (values) => {
         console.log('Received values of form: ', values);
         let payload= new FormData()
-        let phoneNumber=`+${values.prefix}${values.phoneNumber}`
+        let phoneNumber=`+${values.prefix}${values.phone}`
         payload.append("phoneNumber",phoneNumber)
         payload.append("password",values.password)
         payload.append("role",values.role)
@@ -58,7 +59,10 @@ function Register() {
         handleRegister(payload).then(res=>{
             if(res.code===200){
                 console.log(res)
+                window.location.href='/login'
             }
+            // else message.error(JSON.parse)
+            
         })
     };
 
@@ -151,7 +155,8 @@ function Register() {
                             <Input.Password />
                         </Form.Item>
 
-                        <Form.Item name="role"
+                        <Form.Item 
+                            name="role"
                             label="Role"
                             hasFeedback
                             rules={[
@@ -168,12 +173,13 @@ function Register() {
                         </Form.Item>
 
                         <Form.Item
-                            shouldUpdate={(prevValues, currentValues) => prevValues.select !== currentValues.select}//条件渲染
+                            shouldUpdate={(prevValues, currentValues) => prevValues.role !== currentValues.role}//条件渲染
                             noStyle
                         >
-                            {({ getFieldValue }) =>
-                                getFieldValue('select') === 'seller' ? (
-                                    <Form.Item name='companyName'
+                            {({ getFieldValue }) =>{
+                                return getFieldValue('role') === 'seller' ? (
+                                    <Form.Item 
+                                        name='companyName'
                                         label="Company Name"
                                         tooltip="Please enter the full name of your registered company."
                                         rules={[
@@ -186,7 +192,7 @@ function Register() {
                                         <Input />
                                     </Form.Item>
                                 ) : null
-                            }
+                            }}
                         </Form.Item>
 
                         <Form.Item {...tailFormItemLayout}>

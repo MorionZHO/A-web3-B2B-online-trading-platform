@@ -1,0 +1,15 @@
+.detail-wrapper{
+    display: flex;
+    margin-left:40px;
+    margin-right: 40px;
+    margin-top: 20px;
+    position: relative;
+    
+}
+
+.purchase-button{
+    width: 60%;
+    height: 3rem !important;
+    left: 50%;
+    transform: translate(-50%);
+}

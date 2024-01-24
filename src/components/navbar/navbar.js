@@ -41,6 +41,9 @@ const onClick = ({ key }) => {
     storage.clearAll()
     window.location.href='/login'
   }
+  else if(key === '2'){
+    window.location.href='/manageProduct'
+  }
 };
 
 
