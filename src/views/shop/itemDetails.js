@@ -21,7 +21,6 @@ function ItemDetails() {
     // 关闭 Modal 的方法
     const closeModal = () => {
         setIsModalOpen(false);
-
     };
 
     let productTitle = 'Camera'
@@ -55,15 +54,13 @@ function ItemDetails() {
         },
     ];
 
-
-
-
     useEffect(() => {
+        setProduct(resProduct)
         fetchProductDetail(id).then((res) => {
+            // setProduct(res)
             console.log(res)
         });
-        setProduct(resProduct)
-    }, [id]);
+    }, []);
 
     return (
         <>
@@ -73,14 +70,13 @@ function ItemDetails() {
                 <Card>
                     <Image.PreviewGroup
                         items={[
-
                             'https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp',
                             'https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp',
                         ]}
                     >
                         <Image
                             style={{ width: 300 }}
-                            src='https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp'
+                            src={`data:image/jpeg;base64,${product.imageData}`}
                         />
                     </Image.PreviewGroup>
                 </Card>
@@ -102,16 +98,7 @@ function Dialogue({ isModalOpen, closeModal, product }) {
     const [quantity, setQuantity] = useState(1);
 
     const [form] = Form.useForm();
-    // const showModal = (isOpen) => {
-    //     if (isOpen) {
-    //         setOpen(true);
-    //     }
-    //     else setOpen(false)
-    // };
-    // useEffect(() => {
-    //     console.log(isOpen)
-    //     showModal(isOpen)
-    // }, []);
+    
     const handleOk = () => {
         setModalText('The modal will be closed after two seconds');
         setConfirmLoading(true);

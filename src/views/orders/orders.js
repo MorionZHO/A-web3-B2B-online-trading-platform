@@ -8,7 +8,7 @@ import './orders.css'
 
 
 const data = Array.from({
-    length: 23,
+    length: 25,
 }).map((_, i) => ({
     href: 'https://ant.design',
     title: `ant design part ${i}`,
@@ -18,12 +18,6 @@ const data = Array.from({
     content:
         'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
 }));
-const IconText = ({ icon, text }) => (
-    <Space>
-        {React.createElement(icon)}
-        {text}
-    </Space>
-);
 
 function Orders() {
     return (
@@ -37,7 +31,7 @@ function Orders() {
                     onChange: (page) => {
                         console.log(page);
                     },
-                    pageSize: 3,
+                    pageSize: 10,
                 }}
                 dataSource={data}
 

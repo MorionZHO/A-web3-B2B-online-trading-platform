@@ -6,28 +6,22 @@ import './shop.css'
 import { getAllProducts, searchProduct } from '../../api/product';
 
 export default function Shop() {
-    const [productList, setProductList] = useState([])
-    const [isLoading, setIsLoading] = useState(true);
-
-
-    useEffect(() => {
-        getAllProducts().then(res => {
-            setIsLoading(true);
-            setProductList(res)
-            setIsLoading(false);
-        })
-        
-    }, []);
+    const [keyWord,setKeyWord] = useState("All")
+    
+    const setKeyWords = (k) => {
+        setKeyWord(k);
+        console.log(`keyword:${keyWord}`)
+    }
 
     return (
         <>
-            <Navbar></Navbar>
+            <Navbar onSearch={setKeyWord}></Navbar>
             <div className='shop-container'>
                 <div className='sidebar'>
-                    <Sidebar></Sidebar>
+                    <Sidebar onData={setKeyWords}></Sidebar>
                 </div>
-                <div className='item-cards'>{isLoading ? (<div>loading</div>) : <Itemcard productList={productList}></Itemcard>}
-
+                <div className='item-cards'>
+                    <Itemcard keyWord={keyWord}></Itemcard>
                 </div>
             </div>
         </>
@@ -48,31 +42,18 @@ const items = [
     {
         type: 'divider',
     },
-    getItem('Navigation One', 'sub1', null, [
-        getItem('Option 1', '1'),
-        getItem('Option 2', '2'),
-        getItem('Option 3', '3'),
-        getItem('Option 4', '4'),
-    ]),
-    getItem('Navigation Two', 'sub2', null, [
-        getItem('Option 5', '5'),
-        getItem('Option 6', '6'),
-        getItem('Submenu', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
-    ]),
-
-    getItem('Navigation Three', 'sub4', null, [
-        getItem('Option 9', '9'),
-        getItem('Option 10', '10'),
-        getItem('Option 11', '11'),
-        getItem('Option 12', '12'),
-    ]),
+    getItem('All', 'All', null, null),
+    getItem('Shoes', 'Shoes', null, null),
+    getItem('Clothes', 'Clothes', null, null),
+    getItem('Electronics', 'Electronics', null, null),
+    getItem('Home goods', 'Home goods', null, null)
 
 ];
 
-const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
+const rootSubmenuKeys = ['All', 'Shoes', 'Clothes', 'Electronics', 'Home goods'];
 
-function Sidebar() {
-    const [openKeys, setOpenKeys] = useState(['sub1']);
+function Sidebar({ onData }) {
+    const [openKeys, setOpenKeys] = useState(['All']);
     const onOpenChange = (keys) => {
         const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
         if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
@@ -82,7 +63,8 @@ function Sidebar() {
         }
     };
     const onClick = (e) => {
-        console.log('click ', e);
+        console.log(e.key)
+        onData(e.key)
     };
     return (
         <>

@@ -1,3 +1,4 @@
+import axios from "axios";
 import axiosInstance from "../utils/request"
 import { message } from "antd";
 
@@ -18,6 +19,12 @@ export const getAllProducts = (()=>{
 
 export const searchProduct = ((keyword)=>{
     return axiosInstance.get(`/search?KeyWord=${keyword}`).then(res=>{
+        return res;
+    })
+})
+
+export const getProductByType = ((type)=>{
+    return axiosInstance.get(`/shop?type=${type}`).then(res=>{
         return res;
     })
 })
