@@ -13,7 +13,7 @@
 
   .custom-card {
     width: 300px; /* 设置固定宽度 */
-    height: 450px; /* 设置固定高度 */
+    height: 420px; /* 设置固定高度 */
     overflow: hidden; /* 防止内容溢出 */
     display: flex;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);

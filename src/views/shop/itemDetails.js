@@ -27,6 +27,14 @@ function ItemDetails() {
     const [resProduct, setResProduct] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    function updateInventory(newInventory) {
+        setResProduct(resProduct.map((item) => {
+            if (item.label === 'Inventory') {
+                return {...item,children:newInventory}
+            }
+            return item;
+        }))
+    }
 
     // 打开 Modal 的方法
     const openModal = () => {
@@ -75,7 +83,7 @@ function ItemDetails() {
     return (
         <>
             <Navbar></Navbar>
-            <Dialogue isModalOpen={isModalOpen} closeModal={closeModal} product={product}></Dialogue>
+            <Dialogue isModalOpen={isModalOpen} closeModal={closeModal} product={product} update={updateInventory}></Dialogue>
             <div className='detail-wrapper'>
                 <Card>
 
@@ -98,7 +106,7 @@ function ItemDetails() {
 
 export default ItemDetails;
 
-function Dialogue({ isModalOpen, closeModal, product }) {
+function Dialogue({ isModalOpen, closeModal, product, update }) {
     const [modalText, setModalText] = useState('Please select the quantity you want to purchase');
     const [quantity, setQuantity] = useState(1);
     const [confirmLoading, setConfirmLoading] = useState(false);
@@ -157,8 +165,13 @@ function Dialogue({ isModalOpen, closeModal, product }) {
         }
 
         submitOrder(payload).then(res => {
-            console.log(res)
-            setConfirmLoading(false);
+            //loading界面
+            if (res.code === 200) {
+                let newInventory = res.number;
+                update(newInventory)
+                setConfirmLoading(false);
+            }
+
         })
         closeModal()
     }

@@ -34,8 +34,6 @@ function UserInfo() {
         <>
         <Navbar></Navbar>
         <Card><Descriptions title="User Info" items={items} /></Card>
-
-        
         </>
     );
 

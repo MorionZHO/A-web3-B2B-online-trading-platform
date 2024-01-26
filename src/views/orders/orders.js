@@ -1,10 +1,11 @@
-import React from 'react';
+import React ,{useEffect,useState}from 'react';
 import Navbar from '../../components/navbar/navbar'
 import { Menu } from 'antd';
 import Itemcard from '../shop/itemCard';
 import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
 import { Avatar, List, Space, Card } from 'antd';
 import './orders.css'
+import { getUserOrder } from '../../api/order';
 
 
 const data = Array.from({
@@ -20,6 +21,7 @@ const data = Array.from({
 }));
 
 function Orders() {
+    
     return (
         <>
             <Navbar></Navbar>

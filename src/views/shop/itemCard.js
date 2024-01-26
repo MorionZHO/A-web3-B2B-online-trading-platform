@@ -40,7 +40,7 @@ export default function Itemcard({ keyWord }) {
             {products.map((products) => (
                 <Link className='link' to={`/shop/${products.id}`} key={products.id}>
                     <Card key={products.id} title={products.productName} className='custom-card' hoverable cover={<img alt="example" className='card-image' src={`data:image/jpeg;base64,${products.imageData}`} />}>
-                        <p>{products.description}</p>
+                        
                         <Meta title={products.title} description={`provided by ${products.merchantName}`} />
                     </Card>
                 </Link>
