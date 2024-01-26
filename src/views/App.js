@@ -8,6 +8,7 @@ import Orders from './orders/orders'
 import React from 'react';
 import ItemDetails from './shop/itemDetails';
 import ManageProduct from './manageProduct/manageProduct';
+import UserInfo from './home/userInfo';
 import { Button, ConfigProvider } from 'antd';
 import {
   BrowserRouter as Router,
@@ -36,6 +37,7 @@ function App() {
           <Route path='/login' element={<Login />}></Route>
           <Route path='/register' element={<Register></Register>}></Route>
           <Route path='/manageProduct' element={<ManageProduct></ManageProduct>}/>
+          <Route path='/userProfile' element={<UserInfo></UserInfo>}/>
         </Routes>
 
       </Router>

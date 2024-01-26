@@ -22,7 +22,6 @@ const isLoggedIn = () => {
 const isSeller = () => {
   if (localCache !== undefined) {
     const role = localCache['userInfo']['role']
-    console.log(role)
     if (role === 'seller') return true;
   }
   return false
@@ -45,6 +44,9 @@ const onClick = ({ key }) => {
   }
   else if (key === '2') {
     window.location.href = '/manageProduct'
+  }
+  else if(key==='1'){
+    window.location.href='/userProfile'
   }
 };
 
