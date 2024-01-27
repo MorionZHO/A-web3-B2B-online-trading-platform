@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Card, Image, Descriptions, Button, Modal, InputNumber, Select, Form, Input, Popconfirm } from 'antd';
+import { Card, Image, Descriptions, Button, Modal, InputNumber, Select, Form, Input, message } from 'antd';
 import './itemDetails.css';
 import Navbar from '../../components/navbar/navbar';
 import { fetchProductDetail } from '../../api/product';
@@ -170,10 +170,11 @@ function Dialogue({ isModalOpen, closeModal, product, update }) {
                 let newInventory = res.number;
                 update(newInventory)
                 setConfirmLoading(false);
+                message.success("Purchase Successful!")
+                closeModal()
             }
-
         })
-        closeModal()
+        
     }
     return (
         <>

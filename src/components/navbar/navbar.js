@@ -45,16 +45,16 @@ const onClick = ({ key }) => {
   else if (key === '2') {
     window.location.href = '/manageProduct'
   }
-  else if(key==='1'){
-    window.location.href='/userProfile'
+  else if (key === '1') {
+    window.location.href = '/userProfile'
   }
 };
 
 
-function Navbar({onSearch}) {
+function Navbar({ onSearch }) {
   const [items, setItems] = useState([])
   const [showSearch, setShowSearch] = useState(false);
-  function toggleSearch(){
+  function toggleSearch() {
     setShowSearch(!showSearch);
   }
 
@@ -113,7 +113,12 @@ function Navbar({onSearch}) {
         </Link></div>
         <nav className="navbar-links">
           <Link to="/" className="nav-link">Home</Link>
-          <Link className="nav-link" onClick={() => handleNavigation('/shop')}>Shop</Link>
+          {
+            isSeller()
+              ? <Link className="nav-link" onClick={() => handleNavigation('/manageProduct')}>Products</Link>
+              : <Link className="nav-link" onClick={() => handleNavigation('/shop')}>Shop</Link>
+          }
+
           <Link className="nav-link" onClick={() => handleNavigation('/orders')}>Orders</Link>
           <Link to="/about" className="nav-link">About Us</Link>
 
@@ -143,10 +148,10 @@ function Navbar({onSearch}) {
   );
 }
 
-function MySearch({switchIcon,searchHandle}) {
+function MySearch({ switchIcon, searchHandle }) {
   const handleSearch = (value, _e, info) => {
     switchIcon()
-    searchHandle(['search',value])
+    searchHandle(['search', value])
     console.log(value);
   }
   return (

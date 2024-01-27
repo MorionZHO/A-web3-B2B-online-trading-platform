@@ -29,3 +29,21 @@ export const getProductByType = ((type)=>{
     })
 })
 
+export const shelfProduct = ((payload)=>{
+    return axiosInstance.post(`/seller/shelfProduct`,payload).then(res=>{
+        return res;
+    })
+})
+
+export const getMyProducts = ((companyName)=>{
+    return axiosInstance.get(`/shop/manageProduct?companyName=${companyName}`).then(res=>{
+        return res;
+    })
+})
+
+export const editProduct = ((payload)=>{
+    return axiosInstance.post(`/seller/editProduct`,payload).then(res=>{
+        return res;
+    })
+})
+
