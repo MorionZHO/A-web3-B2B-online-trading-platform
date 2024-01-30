@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Pagination } from 'antd';
+import { Card, Pagination,Flex, Spin } from 'antd';
 import './itemCard.css'; // 引入自定义样式文件
 import { Link } from 'react-router-dom';
 import { getAllProducts, searchProduct, getProductByType } from '../../api/product';
@@ -36,12 +36,13 @@ export default function Itemcard({ keyWord }) {
 
 
     return (
+        
         <div className="card-container">
             {products.map((products) => (
                 <Link className='link' to={`/shop/${products.id}`} key={products.id}>
-                    <Card key={products.id} title={products.productName} className='custom-card' hoverable cover={<img alt="example" className='card-image' src={`data:image/jpeg;base64,${products.imageData}`} />}>
+                    <Card key={products.id} title={products.productName.toUpperCase()} className='custom-card' hoverable cover={<img alt="example" className='card-image' src={`data:image/jpeg;base64,${products.imageData}`} />}>
                         
-                        <Meta title={products.title} description={`provided by ${products.merchantName}`} />
+                        <Meta title={products.title} description={`Provided by ${products.merchantName}`} />
                     </Card>
                 </Link>
             ))}

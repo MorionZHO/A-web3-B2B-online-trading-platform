@@ -3,19 +3,17 @@
   width: 100%;
 }
 
-.sidebar {
-  width: 20%;
-  /* 或根据需求调整 */
-  /* 其他必要的样式 */
+.list-wrapper {
+  display: flex;
+  justify-content: center;
+  /* 主轴上的对齐方式：水平居中 */
+  align-items: center;
 }
 
-.item-cards {
-  width: 80%;
-  /* 或根据需求调整 */
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 10px;
+.list-card {
+  width: 90%;
+  /* gap: 8px; */
+  /* padding: 10px; */
 }
 
 html,
@@ -32,7 +30,14 @@ body {
   margin: 30px;
 }
 
-.item-card{
+/* .item-card{
   margin-top: 10px;
   margin-bottom: 10px;
+} */
+
+.order-image {
+  height: 12rem;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
 }

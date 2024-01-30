@@ -6,6 +6,8 @@
   .sidebar {
     width: 20%; /* 或根据需求调整 */
     /* 其他必要的样式 */
+    position: sticky;
+    top:0px;
   }
   
   .item-cards {
@@ -23,8 +25,4 @@
     padding: 0;
     background: #f0f2f5; /* 这里设置为淡灰色背景 */
    
-  }
-
-  .cata-container{
-    
   }

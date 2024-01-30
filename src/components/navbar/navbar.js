@@ -6,6 +6,7 @@ import './navbar.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import storage from '../../utils/storage';
+import imagePic from './logo.png'
 
 const localCache = storage.getItem('localCache') ? storage.getItem('localCache') : undefined;
 
@@ -108,8 +109,10 @@ function Navbar({ onSearch }) {
   return (
     <header className="navbar-container">
       <div className="navbar">
+      
         <div className="navbar-logo"><Link to="/" className="navbar-logo">
           Web3Trade
+          
         </Link></div>
         <nav className="navbar-links">
           <Link to="/" className="nav-link">Home</Link>

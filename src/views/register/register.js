@@ -61,6 +61,9 @@ function Register() {
                 console.log(res)
                 window.location.href='/login'
             }
+            else if(res.code===400){
+                message.error("用户已存在！")
+            }
             // else message.error(JSON.parse)
             
         })
