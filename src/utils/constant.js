@@ -1,0 +1,1 @@
+export const TOKEN_TIME_LIMIT = 60 * 60 * 1000;  //1h

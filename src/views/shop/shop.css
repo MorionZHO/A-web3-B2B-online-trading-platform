@@ -1,0 +1,28 @@
+.shop-container {
+    display: flex;
+    width: 100%;
+  }
+  
+  .sidebar {
+    width: 20%; /* 或根据需求调整 */
+    /* 其他必要的样式 */
+    position: sticky;
+    top:0px;
+  }
+  
+  .item-cards {
+    width: 80%; /* 或根据需求调整 */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+    margin-left: 50px;
+  }
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #f0f2f5; /* 这里设置为淡灰色背景 */
+   
+  }

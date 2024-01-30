@@ -1,0 +1,21 @@
+.detail-wrapper{
+    display: flex;
+    margin-left:40px;
+    margin-right: 40px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.purchase-button{
+    position: absolute;
+    width: 60%;
+    height: 50px !important;
+    left: 50%;
+    bottom:10%;
+    transform: translate(-50%);
+}
+
+.detail-wrapper .ant-descriptions {
+    margin: 20px; /* 给描述列表下方添加一些空间 */
+  }
+  
